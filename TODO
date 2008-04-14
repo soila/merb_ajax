@@ -1,0 +1,4 @@
+TODO:
+Add specs and perform basic tests
+Increase integration with merb_helpers plugin
+Integrate JavascriptGenerator functions into js.erb views

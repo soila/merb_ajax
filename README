@@ -1,0 +1,24 @@
+merb_ajax
+=================
+
+A plugin for the Merb framework that provides Rails-like helper methods for Ajax (prototype, scriptaculous).
+
+To use this plugin in merb in your app
+
+config/dependencies.rb
+
+#...
+
+dependency "merb_ajax"
+
+#...
+
+Please refer to the RDoc for the helper methods available. Functionality should be very similar to the corresponding
+Rails methods since they have been taken straight from the rails gems and then modified.
+
+Please note that the current version has been quickly assembled and not yet sufficiently tested. It seems to work with
+my current merb project, though ;-)
+
+Email me at ulf@projecttray.com if you've got any comments, suggestions or questions.
+
+
