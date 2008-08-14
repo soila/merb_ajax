@@ -6,17 +6,17 @@ module Merb
     # a Builder. By default, they output XHTML compliant tags.
     module TagHelper
       include ERB::Util
-      
+
       BOOLEAN_ATTRIBUTES = Set.new(%w(disabled readonly multiple))
-      
+
       # Returns an HTML block tag of type +name+ surrounding the +content+. Add
-      # HTML attributes by passing an attributes hash to +options+. 
+      # HTML attributes by passing an attributes hash to +options+.
       # Instead of passing the content as an argument, you can also use a block
       # in which case, you pass your +options+ as the second parameter.
       # Set escape to false to disable attribute value escaping.
       #
       # ==== Options
-      # The +options+ hash is used with attributes with no value like (<tt>disabled</tt> and 
+      # The +options+ hash is used with attributes with no value like (<tt>disabled</tt> and
       # <tt>readonly</tt>), which you can give a value of true in the +options+ hash. You can use
       # symbols or strings for the attribute names.
       #
@@ -43,7 +43,7 @@ module Merb
           content_tag_string(name, content, options, escape)
         end
       end
-      
+
       # Returns a CDATA section with the given +content+.  CDATA sections
       # are used to escape blocks of text containing characters which would
       # otherwise be recognized as markup. CDATA sections begin with the string
@@ -70,16 +70,20 @@ module Merb
       def escape_once(html)
         html.to_s.gsub(/[\"><]|&(?!([a-zA-Z]+|(#\d+));)/) { |special| ERB::Util.html_escape(special) }
       end
-      
+
       # For compatability between Rails' url_for and Merb's url. Deletes :escape key from url hash,
       # which url_for filters out but url doesn't.
       #
       def url_for(route_name = nil, new_params = {})
-        route_name.delete(:escape) if route_name.class.to_s == "Hash" && route_name.key?(:escape) 
+        if route_name.kind_of?(String)
+          return route_name
+        end
+
+        route_name.delete(:escape) if route_name.class.to_s == "Hash" && route_name.key?(:escape)
         new_params.delete(:escape) if new_params.class.to_s == "Hash" && new_params.key?(:escape)
         return url(route_name, new_params)
       end
-      
+
       private
         def content_tag_string(name, content, options, escape = true)
           tag_options = tag_options(options, escape) if options
